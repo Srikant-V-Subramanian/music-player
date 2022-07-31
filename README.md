@@ -1,1 +1,1 @@
-- A music player by Srikant.V
+A music player by Srikant.V
