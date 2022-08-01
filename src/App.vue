@@ -38,6 +38,11 @@ export default {
           src: require("../src/assets/Post-malone-better-now.mp3")
         },
         {
+          title: 'OTP',
+          artists: 'London View',
+          src: require("../src/assets/otp-london-view.mp3")
+        },
+        {
           title: 'Rockstar',
           artists: 'Post Malone ft. 21 Savage',
           src: require("../src/assets/Post-malone-rockstar.mp3")
@@ -73,7 +78,11 @@ export default {
         this.index = 0
       }
       this.current = this.songs[this.index]
-      this.play(this.cuurent)
+      this.player.src = this.current.src;
+      if (this.isPlaying) {
+        this.player.pause()
+        this.player.play()
+      }
     },
     prev() {
       this.index--
@@ -81,7 +90,11 @@ export default {
         this.index = this.songs.length - 1
       }
       this.current = this.songs[this.index]
-      this.play(this.cuurent)
+      this.player.src = this.current.src;
+      if (this.isPlaying) {
+        this.player.pause()
+        this.player.play()
+      }
     }
   }, 
 
