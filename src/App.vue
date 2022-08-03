@@ -6,10 +6,14 @@
     <section class="player">
       <h2 class="song-title">{{ current.title }} - <span>{{ current.artists }}</span></h2>
       <section class="controls">
+                <input type="range" name="volume" id="volume" min="0" max="1" value="1" step="0.01" @change="volume">
         <button class="prev" @click="prev">Prev</button>
         <button class="play" v-if="!isPlaying" @click="play">Play</button>
         <button class="pause" v-else @click="pause">Pause</button>
         <button class="next" @click="next">Next</button>
+        <button @click="duration">Duration</button>
+        <h3>Volume Slider</h3>
+        
       </section>
     </section>
     <section class="playlist">
@@ -19,7 +23,9 @@
         </button>
       </section>
   </main>
-
+  <footer>
+      <h1>CHECK THE CONSOLE!!</h1>
+  </footer>
 </template>
 
 <script>
@@ -48,10 +54,19 @@ export default {
           src: require("../src/assets/Post-malone-rockstar.mp3")
         }
       ],
-      player: new Audio()
+       player: new Audio(),
     }
   },
   methods: {
+    volume() {
+      const volumeSlider = document.getElementById("volume")
+      this.player.volume = volumeSlider.value
+      console.log(this.player.volume)
+    },
+    duration() {
+      const songDuration = Math.round((100*(this.player.duration))/60)/100
+      console.log(songDuration)
+    },
     play (song) {
       if (typeof song.src != "undefined") {
         this.current = song;
@@ -68,10 +83,12 @@ export default {
       }.bind(this));
       this.isPlaying = true;
     },
+    
     pause() {
       this.player.pause()
       this.isPlaying = false
     },
+
     next() {
       this.index++
       if (this.index > this.songs.length - 1) {
@@ -84,6 +101,7 @@ export default {
         this.player.play()
       }
     },
+
     prev() {
       this.index--
       if (this.index < 0) {
@@ -103,6 +121,9 @@ export default {
     this.player.src = this.current.src
   }
 }
+
+
+
 </script>
 
 <style>
@@ -156,5 +177,12 @@ header{
   background-color: rgb(33, 33, 33);
   color: white;
   height: 10vh;
+}
+
+footer{
+  margin: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 </style>
